@@ -18,6 +18,7 @@ import Resources from "./components/Resources/Resources";
 import Solution from "./components/Solution/Solution";
 import WinningPlatform from "./components/WinningPlatform/WinningPlatform";
 import CustomDatePicker from "./components/datepicker/CustomDatePicker";
+import RefRender from "./components/RefRender/RefRender";
 
 function App() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -47,7 +48,7 @@ function App() {
       {/* <CustomDatePicker /> */}
       {/* <CustomTextEditor /> */}
       {/* <ImageUploadByReactHookForm /> */}
-      <InfinityScroll
+      {/* <InfinityScroll
         scrollRef={scrollRef}
         setPhotoId={setPhotoId}
         handleSubmit={handleSubmit}
@@ -60,7 +61,8 @@ function App() {
         }}
       >
         click me
-      </button>
+      </button> */}
+      <RefRender />
     </div>
   );
 }
