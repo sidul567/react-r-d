@@ -34,39 +34,36 @@ const RefRender: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (select === "1" && ref.current) {
-        resumable.assignBrowse(ref.current, false);
-        if (ref2.current) {
-          resumable.assignDrop(ref2.current);
-        }
-        ("");
-        resumable.on("fileAdded", function (file) {
-          console.log(file);
-          setFileName(file.fileName);
-          // setLoading(true);
-          // resumable.upload();
-        });
-
-        resumable.on("fileProgress", function (file) {
-          setLoading(true);
-          setProgress(file.progress(true) * 100);
-        });
-
-        resumable.on("fileSuccess", function (file, response) {
-          setLoading(false);
-          const result = JSON.parse(response);
-          setLink(result.link);
-        });
-
-        resumable.on("fileError", function (file, response) {
-          setLoading(false);
-          console.log(response);
-        });
+    if (select === "1" && ref.current) {
+      resumable.assignBrowse(ref.current, false);
+      if (ref2.current) {
+        resumable.assignDrop(ref2.current);
       }
-    };
+      ("");
+      resumable.on("fileAdded", function (file) {
+        console.log(file);
+        setFileName(file.fileName);
+        setDrag(false);
+        // setLoading(true);
+        // resumable.upload();
+      });
 
-    fetchData();
+      resumable.on("fileProgress", function (file) {
+        setLoading(true);
+        setProgress(file.progress(true) * 100);
+      });
+
+      resumable.on("fileSuccess", function (file, response) {
+        setLoading(false);
+        const result = JSON.parse(response);
+        setLink(result.link);
+      });
+
+      resumable.on("fileError", function (file, response) {
+        setLoading(false);
+        console.log(response);
+      });
+    }
   }, [select]);
 
   const handleTest = async () => {
@@ -85,14 +82,28 @@ const RefRender: React.FC<Props> = (props: Props) => {
       {select === "1" && (
         <>
           <div
-            className={`bg-orange-100 h-[300px] w-[300px] rounded-lg border border-transparent ${
-              drag && "border border-dashed border-blue-500"
+            className={`bg-orange-100 h-[300px] w-[300px] rounded-lg border ${
+              drag ? "border-dashed border-blue-500" : "border-transparent"
             }`}
             ref={ref2}
-            onDragEnter={() => {
-              setDrag(true);
+            onDrop={(event) => {
+              event.preventDefault();
+              setDrag(false);
+              console.log("Drop triggered");
+              // Handle the file drop event here if needed
+            }}
+            onDragOver={(event) => {
+              event.preventDefault();
+              if (!drag) {
+                setDrag(true);
+              }
             }}
             onDragLeave={() => {
+              console.log("Drag leave triggered");
+              setDrag(false);
+            }}
+            onDragEnd={() => {
+              console.log("Drag end triggered");
               setDrag(false);
             }}
           >
