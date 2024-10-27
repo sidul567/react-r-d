@@ -73,8 +73,7 @@ app.post('/video-upload', upload.single('file'), (req, res) => {
             const videoLink = `${req.protocol}://${req.get('host')}/uploads/${resumableFilename}`;
             res.json({ link: videoLink });
         } else {
-            const videoLink = `${req.protocol}://${req.get('host')}/uploads/${resumableFilename}`;
-            res.json({ link: videoLink });
+            res.json({ message: "Chunk upload successfully!" });
         }
     });
 });

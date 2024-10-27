@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import BuiltForPeople from "./components/BuiltForPeople/BuiltForPeople";
 import Parent from "./components/Caching/Parent";
@@ -21,14 +21,15 @@ import CustomDatePicker from "./components/datepicker/CustomDatePicker";
 import RefRender from "./components/RefRender/RefRender";
 
 function App() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // const scrollRef = useRef<HTMLDivElement>(null);
   const [photoId, setPhotoId] = useState("");
-  function handleSubmit(photoId:string) {
-    console.log(photoId);
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }
+  // function handleSubmit(photoId:string) {
+  //   console.log(photoId);
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  //   }
+  // }
+  
   return (
     <div className="font-sans">
       {/* <Navbar />
@@ -62,7 +63,8 @@ function App() {
       >
         click me
       </button> */}
-      <RefRender />
+      {/* <RefRender /> */}
+      {/* <input type="text" name="" id="" className="border border-black" value={photoId} onChange={(e)=>setPhotoId(e.target.value)} /> */}
     </div>
   );
 }

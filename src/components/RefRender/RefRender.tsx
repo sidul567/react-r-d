@@ -11,7 +11,7 @@ const RefRender: React.FC<Props> = (props: Props) => {
   const [drag, setDrag] = useState(false);
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(false);
-  const [resumable, setResumable] = useState<any>();
+  const [resumable, setResumable] = useState<Resumable.Resumable>();
   const [fileName, setFileName] = useState("");
   const ref = useRef<HTMLButtonElement | null>(null);
   const ref2 = useRef<HTMLDivElement | null>(null);
@@ -28,13 +28,14 @@ const RefRender: React.FC<Props> = (props: Props) => {
       headers: {
         Accept: "application/json",
       },
-      testChunks: false,
+      maxFiles: 1,
+      simultaneousUploads: 1,
     });
     setResumable(resumable);
   }, []);
 
   useEffect(() => {
-    if (select === "1" && ref.current) {
+    if (select === "1" && ref.current && resumable) {
       resumable.assignBrowse(ref.current, false);
       if (ref2.current) {
         resumable.assignDrop(ref2.current);
